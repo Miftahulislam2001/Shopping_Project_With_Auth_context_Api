@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../provider/AuthProvider';
 
 const SignUp = () => {
     const [error, setError] = useState('');
+    const {createUser} = useContext(AuthContext)
 
     const handleSignUp = (event) =>{
         event.preventDefault();
@@ -16,11 +18,19 @@ const SignUp = () => {
             return
         }
         else if(password.length < 6){
-            console.log('password length minimum 6 Character');
+            setError('password length minimum 6 Character');
             return
         }
 
-        
+        createUser(email, password)
+        .then(result =>{
+            const loggedUser = result.user;
+            console.log(loggedUser);
+        })
+        .catch(error =>{
+            setError(error.message)
+            console.log(error);
+        })
     }
 
 
@@ -43,6 +53,7 @@ const SignUp = () => {
                 <label htmlFor="password">Confirm Password</label>
                 <input type="password" name="confirm" id="" required />    
             </div>
+            <p><small>{error}</small></p>
             <input className='btn-submit' type="submit" value="Login" />
         </form>
         <p><small>Already Account ? <Link to="/login">Login</Link></small></p>

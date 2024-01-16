@@ -16,3 +16,13 @@ nav.header a{
 nav.header a:hover{
     color: orange;
 }
+.text-white{
+    color: white;
+    padding-left: 7px;
+    padding-right: 3px;
+   
+}
+.btn{
+    background: white;
+    color: black;
+}
